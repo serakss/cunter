@@ -1,12 +1,25 @@
 type PropsTypeReset ={
-    count:number;
+    count:string;
     reset:()=>void
-
+    startValue:string
+    titleSittings:string
+    incorrect:string
 }
 
 export function Reset(props:PropsTypeReset){
+    const disableReset =()=>{
+        if(props.count === props.startValue){
+            return true
+        }
+        if(props.count === props.titleSittings ){
+            return true
+        }
+        if(props.count === props.incorrect ){
+            return true
+        }
+    }
     return <div>
-        <button disabled={props.count === 0} onClick={props.reset}>reset</button>
+        <button disabled={disableReset()} onClick={props.reset}>reset</button>
     </div>
 }
 

@@ -1,22 +1,81 @@
 import {Counter} from "./componentsDisplay/Counter";
-import {SettingsCounter} from "./componentsDisplay/settings";
 import './App.css';
-import {useState} from "react";
+import {ChangeEvent, useEffect, useState} from "react";
 
+import {SettingsDisplay} from "./componentsDisplay/Sitings/SettingsDisplay";
 
 
 function App() {
-    const[count,setCount]=useState(0);
-    const increment =()=>setCount(count + 1);
-    const reset =()=>setCount(0);
-    let max = 5;
+    const [count, setCount] = useState("0");
+    const [maxValue, setMaxValue] = useState("0")
+    const [startValue, setStartValue] = useState("0")
+
+    let titleSittings = "Нажмите SET";
+    let incorrect = "Некоректное значение"
+    let max = maxValue;
+
+   useEffect(()=>{
+       let startValue = localStorage.getItem("startValue");
+       let maxValue = localStorage.getItem("maxValue")
+       if (startValue) {
+           setStartValue(startValue)
+       }
+       if (maxValue) {
+           setMaxValue(maxValue)
+       }
+       if (startValue) {
+           setCount(startValue)
+       }
+   },[])
+    useEffect(()=>{
+        localStorage.setItem("startValue", startValue)
+    },[startValue])
+    useEffect(()=>{
+        localStorage.setItem("maxValue", maxValue)
+    },[maxValue])
+
+
+    const increment = () => setCount(String(Number(count) + 1));
+    const reset = () => setCount(startValue);
+    const onChangeMaxValue = (e: ChangeEvent<HTMLInputElement>) => {
+        setMaxValue(e.currentTarget.value)
+        setCount(titleSittings)
+    }
+    const onChangeStartValue = (e: ChangeEvent<HTMLInputElement>) => {
+        setStartValue(e.currentTarget.value)
+        setCount(titleSittings)
+    }
+    const IncorrectValue = () => {
+        setCount(incorrect)
+    }
+
+    const setValue = () => {
+       // localStorage.setItem("startValue", startValue)
+        //localStorage.setItem("maxValue", maxValue)
+
+        setCount(startValue)
+
+    }
+
     return <div>
-        <SettingsCounter/>
+        <SettingsDisplay
+            startValue={startValue}
+            maxValue={maxValue}
+            onChangeMaxValue={onChangeMaxValue}
+            onChangeStartValue={onChangeStartValue}
+            setValue={setValue}
+            titleSittings={titleSittings}
+            IncorrectValue={IncorrectValue}
+
+        />
         <Counter
-        count={count}
-        increment={increment}
-        reset={reset}
-        max={max}
+            startValue={startValue}
+            count={count}
+            increment={increment}
+            reset={reset}
+            max={max}
+            titleSittings={titleSittings}
+            incorrect={incorrect}
         />
     </div>
 

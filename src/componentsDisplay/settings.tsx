@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {InputValue} from "./MaxValue";
+import {InputValue} from "./Value";
 
 type PropsType = {}
 
@@ -33,7 +33,7 @@ export function SettingsCounter(props: PropsType) {
             />
             <h2>start value</h2>
             <InputValue/>
-            <button onClick={incHandler}>inc</button>
+            <button onClick={incHandler}>set</button>
 
         </div>
     )

@@ -2,10 +2,13 @@ import {IncButton} from "../bottons/inc";
 import {Reset} from "../bottons/reset";
 
 export type PropsTypeCounter = {
-    count: number;
+    count: string;
     increment: () => void;
     reset: () => void
-    max: number
+    max: string
+    startValue:string
+    titleSittings:string
+    incorrect:string
 }
 
 export function Counter(props: PropsTypeCounter) {
@@ -16,10 +19,17 @@ export function Counter(props: PropsTypeCounter) {
             <IncButton
                 increment={props.increment}
                 count={props.count}
-                max={props.max}/>
+                max={props.max}
+                titleSittings={props.titleSittings}
+                incorrect={props.incorrect}
+            />
             <Reset
                 count={props.count}
-                reset={props.reset}/>
+                reset={props.reset}
+                startValue={props.startValue}
+                titleSittings={props.titleSittings}
+                incorrect={props.incorrect}
+            />
 
         </div>
     </div>
